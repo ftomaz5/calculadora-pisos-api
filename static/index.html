@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Pisos — Demonstração</title>
+  <style>
+    :root {
+      --bg:#0d1117; --surface:#161b22; --border:#21262d; --text:#e6edf3;
+      --muted:#9aa5b1; --accent:#3b82f6; --accent-2:#22d3ee; --ok:#3fb950;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.6; padding:32px 16px; }
+    .wrap { width:min(760px,100%); margin:0 auto; }
+    h1 { font-size:1.8rem; margin-bottom:4px; }
+    h1 span { color:var(--accent); }
+    .sub { color:var(--muted); margin-bottom:24px; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px;
+      padding:24px; margin-bottom:20px; }
+    label { display:block; font-size:.9rem; color:var(--muted); margin:12px 0 6px; }
+    select,input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border);
+      background:#0d1117; color:var(--text); font-size:.95rem; }
+    .row { display:flex; gap:12px; flex-wrap:wrap; }
+    .row > div { flex:1; min-width:140px; }
+    button { margin-top:20px; width:100%; padding:12px; border:none; border-radius:8px;
+      background:var(--accent); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+      transition:opacity .2s; }
+    button:hover { opacity:.9; }
+    .result { display:none; }
+    .result.show { display:block; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-top:8px; }
+    .metric { background:#0d1117; border:1px solid var(--border); border-radius:10px; padding:14px; }
+    .metric .v { font-size:1.4rem; font-weight:700; }
+    .metric .l { font-size:.78rem; color:var(--muted); }
+    .total { color:var(--ok); }
+    .err { color:#f85149; margin-top:12px; display:none; }
+    .err.show { display:block; }
+    footer { color:var(--muted); font-size:.82rem; text-align:center; margin-top:24px; }
+    a { color:var(--accent-2); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Calculadora de <span>Pisos</span></h1>
+    <p class="sub">Informe o ambiente e descubra caixas, pallets, peças e custo estimado. Demonstração da API.</p>
+
+    <div class="card">
+      <label for="produto">Produto</label>
+      <select id="produto"></select>
+
+      <label>Medidas do ambiente</label>
+      <div class="row">
+        <div>
+          <label for="comprimento" style="margin-top:0">Comprimento (m)</label>
+          <input id="comprimento" type="number" min="0" step="0.01" value="5" />
+        </div>
+        <div>
+          <label for="largura" style="margin-top:0">Largura (m)</label>
+          <input id="largura" type="number" min="0" step="0.01" value="4" />
+        </div>
+        <div>
+          <label for="margem" style="margin-top:0">Margem de perda (%)</label>
+          <input id="margem" type="number" min="0" max="100" step="1" value="10" />
+        </div>
+      </div>
+
+      <button id="calcular">Calcular material</button>
+      <div class="err" id="erro"></div>
+    </div>
+
+    <div class="card result" id="resultado">
+      <div class="grid">
+        <div class="metric"><div class="v" id="r-area"></div><div class="l">Área com perda</div></div>
+        <div class="metric"><div class="v" id="r-caixas"></div><div class="l">Caixas</div></div>
+        <div class="metric"><div class="v" id="r-pallets"></div><div class="l">Pallets</div></div>
+        <div class="metric"><div class="v" id="r-pecas"></div><div class="l">Peças</div></div>
+        <div class="metric"><div class="v total" id="r-custo"></div><div class="l">Custo estimado</div></div>
+      </div>
+    </div>
+
+    <footer>
+      Feito por <a href="https://github.com/ftomaz5">Flávio Tomaz</a> ·
+      <a href="/docs">Documentação da API (Swagger)</a>
+    </footer>
+  </div>
+
+  <script>
+    const API = "";
+    const brl = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+    async function carregarProdutos() {
+      const sel = document.getElementById("produto");
+      try {
+        const res = await fetch(`${API}/api/produtos`);
+        const produtos = await res.json();
+        sel.innerHTML = produtos
+          .map((p) => `<option value="${p.id}">${p.nome} (${p.formato}) — ${brl(p.preco_m2)}/m²</option>`)
+          .join("");
+      } catch (e) {
+        sel.innerHTML = `<option>Erro ao carregar produtos</option>`;
+      }
+    }
+
+    async function calcular() {
+      const erro = document.getElementById("erro");
+      const resultado = document.getElementById("resultado");
+      erro.classList.remove("show");
+      const body = {
+        produto_id: document.getElementById("produto").value,
+        comodos: [{
+          comprimento_m: parseFloat(document.getElementById("comprimento").value),
+          largura_m: parseFloat(document.getElementById("largura").value),
+        }],
+        margem_perda_pct: parseFloat(document.getElementById("margem").value),
+      };
+      try {
+        const res = await fetch(`${API}/api/calcular`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || "Erro no cálculo");
+        }
+        const d = await res.json();
+        document.getElementById("r-area").textContent = d.area_com_perda_m2.toFixed(2) + " m²";
+        document.getElementById("r-caixas").textContent = d.caixas;
+        document.getElementById("r-pallets").textContent = d.pallets;
+        document.getElementById("r-pecas").textContent = d.pecas;
+        document.getElementById("r-custo").textContent = brl(d.custo_total);
+        resultado.classList.add("show");
+      } catch (e) {
+        erro.textContent = e.message;
+        erro.classList.add("show");
+        resultado.classList.remove("show");
+      }
+    }
+
+    document.getElementById("calcular").addEventListener("click", calcular);
+    carregarProdutos();
+  </script>
+</body>
+</html>
