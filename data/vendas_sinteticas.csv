@@ -1,0 +1,181 @@
+produto_id,linha,preco_m2,mes,indice_mercado,promo,demanda_m2
+marmore-carrara-80x80,Mármore,89.9,1,100.9,0,430.0
+madeira-nature-20x120,Madeira,74.5,1,100.9,0,377.9
+urban-stone-cimento-60x60,Urban Stone,59.9,1,100.9,0,514.1
+essencial-bianco-60x60,Essencial,42.9,1,100.9,0,570.1
+decorada-rochaprime-60x120,Decorada,119.9,1,100.9,0,326.2
+marmore-carrara-80x80,Mármore,89.9,2,103.2,0,479.9
+madeira-nature-20x120,Madeira,74.5,2,103.2,0,461.3
+urban-stone-cimento-60x60,Urban Stone,59.9,2,103.2,0,514.9
+essencial-bianco-60x60,Essencial,42.9,2,103.2,0,618.4
+decorada-rochaprime-60x120,Decorada,119.9,2,103.2,0,289.1
+marmore-carrara-80x80,Mármore,89.9,3,106.9,0,539.1
+madeira-nature-20x120,Madeira,74.5,3,106.9,0,655.3
+urban-stone-cimento-60x60,Urban Stone,59.9,3,106.9,1,901.2
+essencial-bianco-60x60,Essencial,42.9,3,106.9,0,879.3
+decorada-rochaprime-60x120,Decorada,119.9,3,106.9,0,384.2
+marmore-carrara-80x80,Mármore,89.9,4,104.5,0,614.5
+madeira-nature-20x120,Madeira,74.5,4,104.5,1,777.7
+urban-stone-cimento-60x60,Urban Stone,59.9,4,104.5,0,750.5
+essencial-bianco-60x60,Essencial,42.9,4,104.5,0,834.2
+decorada-rochaprime-60x120,Decorada,119.9,4,104.5,0,423.5
+marmore-carrara-80x80,Mármore,89.9,5,104.8,0,554.2
+madeira-nature-20x120,Madeira,74.5,5,104.8,1,767.1
+urban-stone-cimento-60x60,Urban Stone,59.9,5,104.8,1,837.6
+essencial-bianco-60x60,Essencial,42.9,5,104.8,0,682.8
+decorada-rochaprime-60x120,Decorada,119.9,5,104.8,0,359.0
+marmore-carrara-80x80,Mármore,89.9,6,102.9,1,633.4
+madeira-nature-20x120,Madeira,74.5,6,102.9,0,561.8
+urban-stone-cimento-60x60,Urban Stone,59.9,6,102.9,0,570.5
+essencial-bianco-60x60,Essencial,42.9,6,102.9,0,678.2
+decorada-rochaprime-60x120,Decorada,119.9,6,102.9,0,365.6
+marmore-carrara-80x80,Mármore,89.9,7,101.9,0,513.8
+madeira-nature-20x120,Madeira,74.5,7,101.9,0,495.5
+urban-stone-cimento-60x60,Urban Stone,59.9,7,101.9,0,573.3
+essencial-bianco-60x60,Essencial,42.9,7,101.9,0,689.8
+decorada-rochaprime-60x120,Decorada,119.9,7,101.9,0,331.7
+marmore-carrara-80x80,Mármore,89.9,8,102.3,0,520.0
+madeira-nature-20x120,Madeira,74.5,8,102.3,0,580.4
+urban-stone-cimento-60x60,Urban Stone,59.9,8,102.3,1,831.5
+essencial-bianco-60x60,Essencial,42.9,8,102.3,0,779.1
+decorada-rochaprime-60x120,Decorada,119.9,8,102.3,0,387.8
+marmore-carrara-80x80,Mármore,89.9,9,103.8,0,617.9
+madeira-nature-20x120,Madeira,74.5,9,103.8,0,657.1
+urban-stone-cimento-60x60,Urban Stone,59.9,9,103.8,0,684.9
+essencial-bianco-60x60,Essencial,42.9,9,103.8,1,1001.7
+decorada-rochaprime-60x120,Decorada,119.9,9,103.8,0,446.2
+marmore-carrara-80x80,Mármore,89.9,10,101.1,0,652.8
+madeira-nature-20x120,Madeira,74.5,10,101.1,0,714.4
+urban-stone-cimento-60x60,Urban Stone,59.9,10,101.1,0,756.4
+essencial-bianco-60x60,Essencial,42.9,10,101.1,1,1058.1
+decorada-rochaprime-60x120,Decorada,119.9,10,101.1,0,368.0
+marmore-carrara-80x80,Mármore,89.9,11,102.4,0,534.1
+madeira-nature-20x120,Madeira,74.5,11,102.4,0,638.8
+urban-stone-cimento-60x60,Urban Stone,59.9,11,102.4,0,719.2
+essencial-bianco-60x60,Essencial,42.9,11,102.4,0,860.1
+decorada-rochaprime-60x120,Decorada,119.9,11,102.4,0,364.9
+marmore-carrara-80x80,Mármore,89.9,12,102.9,1,659.8
+madeira-nature-20x120,Madeira,74.5,12,102.9,0,566.4
+urban-stone-cimento-60x60,Urban Stone,59.9,12,102.9,1,722.8
+essencial-bianco-60x60,Essencial,42.9,12,102.9,0,654.0
+decorada-rochaprime-60x120,Decorada,119.9,12,102.9,0,297.3
+marmore-carrara-80x80,Mármore,89.9,1,104.8,1,460.4
+madeira-nature-20x120,Madeira,74.5,1,104.8,0,486.1
+urban-stone-cimento-60x60,Urban Stone,59.9,1,104.8,1,740.6
+essencial-bianco-60x60,Essencial,42.9,1,104.8,0,609.3
+decorada-rochaprime-60x120,Decorada,119.9,1,104.8,0,216.9
+marmore-carrara-80x80,Mármore,89.9,2,105.6,0,428.2
+madeira-nature-20x120,Madeira,74.5,2,105.6,0,501.3
+urban-stone-cimento-60x60,Urban Stone,59.9,2,105.6,0,572.2
+essencial-bianco-60x60,Essencial,42.9,2,105.6,1,751.9
+decorada-rochaprime-60x120,Decorada,119.9,2,105.6,1,385.0
+marmore-carrara-80x80,Mármore,89.9,3,105.5,0,553.8
+madeira-nature-20x120,Madeira,74.5,3,105.5,1,761.7
+urban-stone-cimento-60x60,Urban Stone,59.9,3,105.5,0,659.5
+essencial-bianco-60x60,Essencial,42.9,3,105.5,0,867.9
+decorada-rochaprime-60x120,Decorada,119.9,3,105.5,0,432.6
+marmore-carrara-80x80,Mármore,89.9,4,102.7,0,575.3
+madeira-nature-20x120,Madeira,74.5,4,102.7,0,636.6
+urban-stone-cimento-60x60,Urban Stone,59.9,4,102.7,0,730.4
+essencial-bianco-60x60,Essencial,42.9,4,102.7,1,949.7
+decorada-rochaprime-60x120,Decorada,119.9,4,102.7,0,414.3
+marmore-carrara-80x80,Mármore,89.9,5,107.5,0,527.8
+madeira-nature-20x120,Madeira,74.5,5,107.5,0,659.2
+urban-stone-cimento-60x60,Urban Stone,59.9,5,107.5,0,661.2
+essencial-bianco-60x60,Essencial,42.9,5,107.5,0,777.0
+decorada-rochaprime-60x120,Decorada,119.9,5,107.5,0,394.7
+marmore-carrara-80x80,Mármore,89.9,6,103.8,0,528.9
+madeira-nature-20x120,Madeira,74.5,6,103.8,0,520.4
+urban-stone-cimento-60x60,Urban Stone,59.9,6,103.8,0,647.5
+essencial-bianco-60x60,Essencial,42.9,6,103.8,0,716.7
+decorada-rochaprime-60x120,Decorada,119.9,6,103.8,0,362.5
+marmore-carrara-80x80,Mármore,89.9,7,102.6,0,476.5
+madeira-nature-20x120,Madeira,74.5,7,102.6,1,744.5
+urban-stone-cimento-60x60,Urban Stone,59.9,7,102.6,1,794.0
+essencial-bianco-60x60,Essencial,42.9,7,102.6,1,859.6
+decorada-rochaprime-60x120,Decorada,119.9,7,102.6,0,302.7
+marmore-carrara-80x80,Mármore,89.9,8,100.0,0,556.8
+madeira-nature-20x120,Madeira,74.5,8,100.0,0,594.1
+urban-stone-cimento-60x60,Urban Stone,59.9,8,100.0,1,846.9
+essencial-bianco-60x60,Essencial,42.9,8,100.0,0,729.1
+decorada-rochaprime-60x120,Decorada,119.9,8,100.0,0,400.0
+marmore-carrara-80x80,Mármore,89.9,9,104.0,0,564.7
+madeira-nature-20x120,Madeira,74.5,9,104.0,1,854.0
+urban-stone-cimento-60x60,Urban Stone,59.9,9,104.0,0,710.6
+essencial-bianco-60x60,Essencial,42.9,9,104.0,1,1066.0
+decorada-rochaprime-60x120,Decorada,119.9,9,104.0,0,506.2
+marmore-carrara-80x80,Mármore,89.9,10,101.4,0,544.6
+madeira-nature-20x120,Madeira,74.5,10,101.4,0,700.1
+urban-stone-cimento-60x60,Urban Stone,59.9,10,101.4,1,930.1
+essencial-bianco-60x60,Essencial,42.9,10,101.4,0,774.7
+decorada-rochaprime-60x120,Decorada,119.9,10,101.4,0,396.3
+marmore-carrara-80x80,Mármore,89.9,11,99.9,0,589.1
+madeira-nature-20x120,Madeira,74.5,11,99.9,0,550.0
+urban-stone-cimento-60x60,Urban Stone,59.9,11,99.9,0,777.6
+essencial-bianco-60x60,Essencial,42.9,11,99.9,0,732.6
+decorada-rochaprime-60x120,Decorada,119.9,11,99.9,0,512.1
+marmore-carrara-80x80,Mármore,89.9,12,96.3,0,467.1
+madeira-nature-20x120,Madeira,74.5,12,96.3,0,477.4
+urban-stone-cimento-60x60,Urban Stone,59.9,12,96.3,1,752.3
+essencial-bianco-60x60,Essencial,42.9,12,96.3,0,632.0
+decorada-rochaprime-60x120,Decorada,119.9,12,96.3,0,274.9
+marmore-carrara-80x80,Mármore,89.9,1,95.6,1,483.0
+madeira-nature-20x120,Madeira,74.5,1,95.6,1,558.9
+urban-stone-cimento-60x60,Urban Stone,59.9,1,95.6,0,488.5
+essencial-bianco-60x60,Essencial,42.9,1,95.6,0,542.9
+decorada-rochaprime-60x120,Decorada,119.9,1,95.6,0,246.9
+marmore-carrara-80x80,Mármore,89.9,2,96.6,0,519.3
+madeira-nature-20x120,Madeira,74.5,2,96.6,0,526.5
+urban-stone-cimento-60x60,Urban Stone,59.9,2,96.6,0,487.0
+essencial-bianco-60x60,Essencial,42.9,2,96.6,0,590.8
+decorada-rochaprime-60x120,Decorada,119.9,2,96.6,1,417.5
+marmore-carrara-80x80,Mármore,89.9,3,97.4,0,436.7
+madeira-nature-20x120,Madeira,74.5,3,97.4,0,595.5
+urban-stone-cimento-60x60,Urban Stone,59.9,3,97.4,0,625.6
+essencial-bianco-60x60,Essencial,42.9,3,97.4,0,724.8
+decorada-rochaprime-60x120,Decorada,119.9,3,97.4,0,364.3
+marmore-carrara-80x80,Mármore,89.9,4,96.6,0,585.3
+madeira-nature-20x120,Madeira,74.5,4,96.6,0,590.7
+urban-stone-cimento-60x60,Urban Stone,59.9,4,96.6,0,681.8
+essencial-bianco-60x60,Essencial,42.9,4,96.6,1,868.8
+decorada-rochaprime-60x120,Decorada,119.9,4,96.6,0,452.1
+marmore-carrara-80x80,Mármore,89.9,5,92.0,0,442.7
+madeira-nature-20x120,Madeira,74.5,5,92.0,0,477.5
+urban-stone-cimento-60x60,Urban Stone,59.9,5,92.0,0,632.0
+essencial-bianco-60x60,Essencial,42.9,5,92.0,0,719.7
+decorada-rochaprime-60x120,Decorada,119.9,5,92.0,0,349.2
+marmore-carrara-80x80,Mármore,89.9,6,97.2,0,466.7
+madeira-nature-20x120,Madeira,74.5,6,97.2,0,496.9
+urban-stone-cimento-60x60,Urban Stone,59.9,6,97.2,0,591.3
+essencial-bianco-60x60,Essencial,42.9,6,97.2,0,650.0
+decorada-rochaprime-60x120,Decorada,119.9,6,97.2,0,318.2
+marmore-carrara-80x80,Mármore,89.9,7,100.7,1,665.6
+madeira-nature-20x120,Madeira,74.5,7,100.7,1,612.8
+urban-stone-cimento-60x60,Urban Stone,59.9,7,100.7,1,707.4
+essencial-bianco-60x60,Essencial,42.9,7,100.7,0,737.1
+decorada-rochaprime-60x120,Decorada,119.9,7,100.7,0,317.0
+marmore-carrara-80x80,Mármore,89.9,8,97.7,0,459.6
+madeira-nature-20x120,Madeira,74.5,8,97.7,1,736.7
+urban-stone-cimento-60x60,Urban Stone,59.9,8,97.7,0,671.1
+essencial-bianco-60x60,Essencial,42.9,8,97.7,0,737.5
+decorada-rochaprime-60x120,Decorada,119.9,8,97.7,0,386.4
+marmore-carrara-80x80,Mármore,89.9,9,102.6,0,560.7
+madeira-nature-20x120,Madeira,74.5,9,102.6,1,769.3
+urban-stone-cimento-60x60,Urban Stone,59.9,9,102.6,1,944.2
+essencial-bianco-60x60,Essencial,42.9,9,102.6,0,810.9
+decorada-rochaprime-60x120,Decorada,119.9,9,102.6,0,467.9
+marmore-carrara-80x80,Mármore,89.9,10,103.3,0,624.7
+madeira-nature-20x120,Madeira,74.5,10,103.3,0,693.9
+urban-stone-cimento-60x60,Urban Stone,59.9,10,103.3,0,796.5
+essencial-bianco-60x60,Essencial,42.9,10,103.3,0,833.6
+decorada-rochaprime-60x120,Decorada,119.9,10,103.3,0,505.9
+marmore-carrara-80x80,Mármore,89.9,11,101.0,0,558.7
+madeira-nature-20x120,Madeira,74.5,11,101.0,0,628.0
+urban-stone-cimento-60x60,Urban Stone,59.9,11,101.0,0,734.9
+essencial-bianco-60x60,Essencial,42.9,11,101.0,0,807.8
+decorada-rochaprime-60x120,Decorada,119.9,11,101.0,0,392.3
+marmore-carrara-80x80,Mármore,89.9,12,95.0,0,428.9
+madeira-nature-20x120,Madeira,74.5,12,95.0,1,689.6
+urban-stone-cimento-60x60,Urban Stone,59.9,12,95.0,0,519.0
+essencial-bianco-60x60,Essencial,42.9,12,95.0,0,606.3
+decorada-rochaprime-60x120,Decorada,119.9,12,95.0,0,346.3
