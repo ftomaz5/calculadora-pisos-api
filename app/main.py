@@ -104,3 +104,62 @@ def index() -> FileResponse:
 # Arquivos estáticos (CSS/JS/imagens) da demonstração.
 if _STATIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=_STATIC_DIR), name="static")
+
+
+# ---------------------------------------------------------------------------
+# Camada de IA: previsão de demanda (modelo de Machine Learning)
+# ---------------------------------------------------------------------------
+from app.models import PrevisaoRequest, PrevisaoResponse  # noqa: E402
+from ml.predictor import (  # noqa: E402
+    ModeloIndisponivelError,
+    metricas,
+    prever_demanda,
+)
+
+
+@app.get(
+    "/api/modelo/metricas",
+    tags=["ia"],
+    summary="Métricas de avaliação do modelo",
+)
+def get_metricas() -> dict:
+    """Retorna as métricas (MAE, R²) do modelo de previsão, se disponíveis."""
+    m = metricas()
+    if m is None:
+        return {"detail": "Modelo ainda não treinado."}
+    return m
+
+
+@app.post(
+    "/api/prever-demanda",
+    response_model=PrevisaoResponse,
+    tags=["ia"],
+    summary="Prevê a demanda mensal de um produto",
+    responses={404: {"model": ErrorResponse}, 503: {"model": ErrorResponse}},
+)
+def post_prever_demanda(request: PrevisaoRequest) -> PrevisaoResponse:
+    """Prevê a demanda mensal (m²) para um produto usando o modelo de ML."""
+    produto = obter_produto(request.produto_id)
+    if produto is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Produto '{request.produto_id}' não encontrado.",
+        )
+    try:
+        demanda = prever_demanda(
+            produto=produto,
+            mes=request.mes,
+            indice_mercado=request.indice_mercado,
+            promo=request.promo,
+        )
+    except ModeloIndisponivelError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)
+        )
+    return PrevisaoResponse(
+        produto=produto,
+        mes=request.mes,
+        indice_mercado=request.indice_mercado,
+        promo=request.promo,
+        demanda_prevista_m2=demanda,
+    )

@@ -85,3 +85,28 @@ class ErrorResponse(BaseModel):
     """Formato padrão de erro."""
 
     detail: str
+
+
+class PrevisaoRequest(BaseModel):
+    """Entrada para a previsão de demanda mensal de um produto."""
+
+    produto_id: str = Field(..., description="ID do produto do catálogo.")
+    mes: int = Field(..., ge=1, le=12, description="Mês de referência (1=jan ... 12=dez).")
+    indice_mercado: float = Field(
+        default=100.0,
+        ge=50,
+        le=200,
+        description="Índice do mercado de construção (100 = base/média).",
+    )
+    promo: bool = Field(default=False, description="Se o produto está em promoção no mês.")
+
+
+class PrevisaoResponse(BaseModel):
+    """Resultado da previsão de demanda."""
+
+    produto: Produto
+    mes: int
+    indice_mercado: float
+    promo: bool
+    demanda_prevista_m2: float = Field(..., description="Demanda mensal prevista (m²).")
+    unidade: str = "m²/mês"
