@@ -3,16 +3,18 @@
 [![CI](https://github.com/ftomaz5/calculadora-pisos-api/actions/workflows/ci.yml/badge.svg)](https://github.com/ftomaz5/calculadora-pisos-api/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-pytest-0A9EDC?logo=pytest&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikitlearn&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-27%20passing-3fb950?logo=pytest&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-API REST que **dimensiona material de revestimento** para um ambiente: a partir das
-medidas do cômodo e do produto escolhido, calcula **caixas, pallets, peças, sobra e
-custo estimado** — já aplicando a margem de perda de recortes.
+API REST que **dimensiona material de revestimento** e **prevê a demanda mensal** de
+produtos. A partir das medidas de um ambiente, calcula **caixas, pallets, peças, sobra e
+custo**; e, com um modelo de **Machine Learning**, estima a **demanda (m²/mês)** de cada
+produto conforme mês, preço, índice de mercado e promoção.
 
 > Projeto de portfólio construído sobre um problema real do dia a dia da
-> [FT Pisos](https://www.ftpisos.com), e-commerce de pisos e revestimentos do qual
-> sou fundador. Une **domínio de negócio** e **engenharia de software**.
+> [FT Pisos](https://www.ftpisos.com), e-commerce de pisos do qual sou fundador.
+> Une **domínio de negócio**, **engenharia de software** e **ciência de dados**.
 
 ---
 
@@ -20,11 +22,11 @@ custo estimado** — já aplicando a margem de perda de recortes.
 
 - **FastAPI** com documentação interativa automática (Swagger em `/docs`).
 - **Regras de negócio isoladas** em funções puras — fáceis de testar e reutilizar.
-- **Validação forte** com Pydantic v2 (medidas positivas, margem 0–100%, etc.).
+- **Camada de IA** de ponta a ponta: geração de dados → treino → avaliação → serviço.
+- **Validação forte** com Pydantic v2.
 - **Front-end de demonstração** que consome a própria API.
-- **Testes automatizados** (pytest) cobrindo lógica e endpoints.
-- **CI no GitHub Actions** rodando a bateria de testes a cada push.
-- **Dockerfile** pronto para deploy.
+- **27 testes automatizados** (pytest) cobrindo lógica, endpoints e o modelo.
+- **CI no GitHub Actions** e **Dockerfile** prontos.
 
 ---
 
@@ -32,31 +34,59 @@ custo estimado** — já aplicando a margem de perda de recortes.
 
 1. **Área líquida** = soma das áreas dos cômodos (`comprimento × largura`) ou área informada.
 2. **Área com perda** = área líquida × (1 + margem%). Padrão de mercado: **10%**.
-3. **Caixas** = ⌈ área com perda ÷ m² por caixa ⌉ (sempre arredonda para cima).
-4. **Pallets** = ⌈ caixas ÷ caixas por pallet ⌉.
-5. **Peças**, **sobra** e **custo** derivam das caixas compradas.
+3. **Caixas** = ⌈ área com perda ÷ m² por caixa ⌉ (arredonda para cima).
+4. **Pallets**, **peças**, **sobra** e **custo** derivam das caixas compradas.
+
+---
+
+## 🤖 Camada de IA — Previsão de demanda
+
+Um modelo de **regressão (Random Forest, scikit-learn)** estima a demanda mensal de cada
+produto a partir de: **linha**, **preço/m²**, **mês** (sazonalidade), **índice de mercado**
+e **promoção**.
+
+> ⚠️ **Dados sintéticos:** o dataset é gerado artificialmente (`ml/generate_data.py`)
+> apenas para demonstrar o pipeline de ML — não são vendas reais. As relações foram
+> modeladas para serem plausíveis (elasticidade de preço, sazonalidade, efeito de promoção).
+
+**Pipeline:** `OneHotEncoder` (linha) + features numéricas → `RandomForestRegressor`,
+avaliado em conjunto de teste separado.
+
+**Desempenho do modelo:**
+
+| Métrica | Valor |
+|---------|-------|
+| R²      | **0.888** |
+| MAE     | **42.83 m²** |
+| Amostras (treino / teste) | 144 / 36 |
+
+**Análise exploratória (gerada automaticamente):**
+
+![Demanda média por mês](docs/demanda_por_mes.png)
+![Demanda média por linha](docs/demanda_por_linha.png)
+
+Para regenerar dados, treinar e produzir os gráficos:
+
+```bash
+python -m ml.generate_data   # cria data/vendas_sinteticas.csv
+python -m ml.train           # treina, avalia, salva ml/model.joblib e docs/*.png
+```
 
 ---
 
 ## 🚀 Como rodar
 
 ```bash
-# 1. Clonar
 git clone https://github.com/ftomaz5/calculadora-pisos-api.git
 cd calculadora-pisos-api
 
-# 2. Ambiente virtual + dependências
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-# 3. Subir a API
 uvicorn app.main:app --reload
 ```
 
-Acesse:
-
-- **Demonstração:** http://localhost:8000/
-- **Documentação (Swagger):** http://localhost:8000/docs
+Acesse **http://localhost:8000/** (demonstração) e **http://localhost:8000/docs** (Swagger).
 
 ### Com Docker
 
@@ -69,40 +99,39 @@ docker run -p 8000:8000 calculadora-pisos
 
 ## 📡 Endpoints
 
-| Método | Rota                     | Descrição                          |
-|--------|--------------------------|------------------------------------|
-| GET    | `/health`                | Verifica se a API está no ar       |
-| GET    | `/api/produtos`          | Lista o catálogo de produtos       |
-| GET    | `/api/produtos/{id}`     | Detalha um produto                 |
-| POST   | `/api/calcular`          | Calcula o material necessário      |
+| Método | Rota                     | Descrição                              |
+|--------|--------------------------|----------------------------------------|
+| GET    | `/health`                | Verifica se a API está no ar           |
+| GET    | `/api/produtos`          | Lista o catálogo de produtos           |
+| GET    | `/api/produtos/{id}`     | Detalha um produto                     |
+| POST   | `/api/calcular`          | Calcula o material necessário          |
+| POST   | `/api/prever-demanda`    | **Prevê a demanda mensal (IA)**        |
+| GET    | `/api/modelo/metricas`   | **Métricas do modelo (IA)**            |
 
-### Exemplo de requisição
+### Exemplo — cálculo de material
 
 ```bash
 curl -X POST http://localhost:8000/api/calcular \
   -H "Content-Type: application/json" \
-  -d '{
-    "produto_id": "urban-stone-cimento-60x60",
-    "comodos": [{"nome": "Sala", "comprimento_m": 5, "largura_m": 4}],
-    "margem_perda_pct": 10
-  }'
+  -d '{"produto_id":"urban-stone-cimento-60x60","comodos":[{"comprimento_m":5,"largura_m":4}],"margem_perda_pct":10}'
 ```
 
-### Exemplo de resposta
+### Exemplo — previsão de demanda (IA)
+
+```bash
+curl -X POST http://localhost:8000/api/prever-demanda \
+  -H "Content-Type: application/json" \
+  -d '{"produto_id":"essencial-bianco-60x60","mes":10,"indice_mercado":115,"promo":true}'
+```
 
 ```json
 {
-  "produto": { "id": "urban-stone-cimento-60x60", "nome": "Urban Stone Cimento", "formato": "60x60", "preco_m2": 59.9 },
-  "margem_perda_pct": 10.0,
-  "area_liquida_m2": 20.0,
-  "area_com_perda_m2": 22.0,
-  "caixas": 11,
-  "area_comprada_m2": 23.76,
-  "pallets": 1,
-  "pecas": 66,
-  "sobra_m2": 1.76,
-  "custo_total": 1423.18,
-  "custo_por_caixa": 129.38
+  "produto": { "id": "essencial-bianco-60x60", "linha": "Essencial", "preco_m2": 42.9 },
+  "mes": 10,
+  "indice_mercado": 115.0,
+  "promo": true,
+  "demanda_prevista_m2": 1041.5,
+  "unidade": "m²/mês"
 }
 ```
 
@@ -114,8 +143,7 @@ curl -X POST http://localhost:8000/api/calcular \
 pytest
 ```
 
-Cobrem tanto as regras de negócio (arredondamentos, margem, validações) quanto os
-endpoints da API (status codes, contratos de resposta, erros 404 e 422).
+27 testes cobrindo as regras de negócio, os endpoints e o modelo de IA.
 
 ---
 
@@ -123,16 +151,21 @@ endpoints da API (status codes, contratos de resposta, erros 404 e 422).
 
 ```
 calculadora-pisos-api/
-├── app/
-│   ├── main.py         # App FastAPI e rotas
+├── app/                # API FastAPI
+│   ├── main.py         # Rotas (cálculo + IA)
 │   ├── models.py       # Schemas Pydantic
-│   ├── catalog.py      # Catálogo de produtos (dados)
+│   ├── catalog.py      # Catálogo de produtos
 │   └── calculator.py   # Regras de negócio (funções puras)
-├── static/
-│   └── index.html      # Front-end de demonstração
-├── tests/
-│   ├── test_calculator.py
-│   └── test_api.py
+├── ml/                 # Camada de dados / Machine Learning
+│   ├── generate_data.py  # Geração do dataset sintético
+│   ├── train.py          # Treino, avaliação e gráficos
+│   ├── predictor.py      # Carrega o modelo e prevê
+│   ├── model.joblib      # Modelo treinado (artefato)
+│   └── metrics.json      # Métricas de avaliação
+├── data/               # Dataset sintético (CSV)
+├── docs/               # Gráficos de análise exploratória
+├── static/index.html   # Front-end de demonstração
+├── tests/              # Testes (lógica, API e IA)
 ├── .github/workflows/ci.yml
 ├── Dockerfile
 ├── requirements.txt
@@ -141,11 +174,13 @@ calculadora-pisos-api/
 
 ---
 
-## 🛣️ Próximos passos (roadmap)
+## 🛣️ Roadmap
 
-- Orçamento com múltiplos produtos em uma única requisição.
-- Persistência em banco de dados (PostgreSQL) para o catálogo.
-- Camada de dados/IA: previsão de demanda e recomendação de linha por perfil de projeto.
+- [x] API de cálculo de material
+- [x] Camada de IA: previsão de demanda
+- [ ] Orçamento com múltiplos produtos numa requisição
+- [ ] Persistência do catálogo em banco de dados (PostgreSQL)
+- [ ] Recomendação de linha por perfil de projeto
 
 ---
 
