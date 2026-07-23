@@ -4,7 +4,7 @@
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikitlearn&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-27%20passing-3fb950?logo=pytest&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-24%20passing-3fb950?logo=pytest&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 API REST que **dimensiona material de revestimento** e **prevê a demanda mensal** de
@@ -25,8 +25,8 @@ produto conforme mês, preço, índice de mercado e promoção.
 - **Camada de IA** de ponta a ponta: geração de dados → treino → avaliação → serviço.
 - **Validação forte** com Pydantic v2.
 - **Front-end de demonstração** que consome a própria API.
-- **27 testes automatizados** (pytest) cobrindo lógica, endpoints e o modelo.
-- **CI no GitHub Actions** e **Dockerfile** prontos.
+- **24 testes automatizados** (pytest) cobrindo lógica, endpoints e o modelo.
+- **CI no GitHub Actions** (lint + testes com cobertura + build Docker) e **Dockerfile** prontos.
 
 ---
 
@@ -137,13 +137,34 @@ curl -X POST http://localhost:8000/api/prever-demanda \
 
 ---
 
-## 🧪 Testes
+## 🔧 Variáveis de ambiente e configuração
+
+A API roda sem nenhuma variável obrigatória (os valores têm padrões sensatos).
+As configurações opcionais mais úteis são:
+
+| Variável | Descrição | Padrão |
+|----------|-----------|--------|
+| `UVICORN_HOST` | Host de bind do servidor | `0.0.0.0` (Docker) / `127.0.0.1` (local) |
+| `UVICORN_PORT` | Porta HTTP | `8000` |
+| `MODEL_PATH` *(futuro)* | Caminho alternativo para o modelo `.joblib` | `ml/model.joblib` |
+
+O artefato de ML (`ml/model.joblib`) já vem versionado; se ausente, os endpoints de
+IA respondem **HTTP 503** com instrução para treinar (`python -m ml.train`).
+
+---
+
+## 🧪 Testes e qualidade
 
 ```bash
-pytest
+pip install -r requirements-dev.txt
+
+pytest                                    # 24 testes
+pytest --cov=app --cov=ml --cov-report=term-missing   # com cobertura
+ruff check .                              # lint
 ```
 
-27 testes cobrindo as regras de negócio, os endpoints e o modelo de IA.
+24 testes cobrindo as regras de negócio, os endpoints (cálculo e IA) e o modelo.
+O núcleo da aplicação (`app/`) fica acima de **93%** de cobertura.
 
 ---
 
@@ -166,9 +187,11 @@ calculadora-pisos-api/
 ├── docs/               # Gráficos de análise exploratória
 ├── static/index.html   # Front-end de demonstração
 ├── tests/              # Testes (lógica, API e IA)
-├── .github/workflows/ci.yml
+├── .github/workflows/  # ci.yml (lint+testes+docker) e release.yml
 ├── Dockerfile
+├── ruff.toml           # Configuração do linter
 ├── requirements.txt
+├── requirements-dev.txt
 └── README.md
 ```
 

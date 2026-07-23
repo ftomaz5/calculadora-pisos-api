@@ -155,7 +155,7 @@ def post_prever_demanda(request: PrevisaoRequest) -> PrevisaoResponse:
     except ModeloIndisponivelError as exc:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)
-        )
+        ) from exc
     return PrevisaoResponse(
         produto=produto,
         mes=request.mes,

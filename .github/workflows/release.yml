@@ -1,0 +1,23 @@
+name: Release
+
+# Cria uma GitHub Release automaticamente ao publicar uma tag semver (vX.Y.Z).
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Criar release com notas automáticas
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
